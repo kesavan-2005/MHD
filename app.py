@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
 import time
+import os
 
 
 # === Custom CSS for Enhanced UI ===
@@ -216,39 +217,52 @@ def load_models():
         with st.spinner("Loading AI models..."):
             progress_bar = st.progress(0)
 
+            # Base path for models (relative to app.py)
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            model_dir = os.path.join(base_dir, "models")
+
             # Load CNN model
             progress_bar.progress(20)
             models['cnn'] = tf.keras.models.load_model(
-                r"C:\Users\kesav\PycharmProjects\MHD\integration\models\cnn_model.keras")
+                os.path.join(model_dir, "cnn_model.keras")
+            )
 
             # Load LSTM model
             progress_bar.progress(40)
             models['lstm'] = tf.keras.models.load_model(
-                r"C:\Users\kesav\PycharmProjects\MHD\integration\models\lstm_model.h5")
+                os.path.join(model_dir, "lstm_model.h5")
+            )
 
             # Load text model
             progress_bar.progress(60)
-            models['text'] = joblib.load(r"C:\Users\kesav\PycharmProjects\MHD\integration\models\text_model.pkl")
+            models['text'] = joblib.load(
+                os.path.join(model_dir, "text_model.pkl")
+            )
 
             # Load meta model
             progress_bar.progress(80)
-            models['meta'] = joblib.load(r"C:\Users\kesav\PycharmProjects\MHD\integration\models\meta_model.pkl")
+            models['meta'] = joblib.load(
+                os.path.join(model_dir, "meta_model.pkl")
+            )
 
             # Load encoders
             progress_bar.progress(100)
             models['facial_le'] = joblib.load(
-                r"C:\Users\kesav\PycharmProjects\MHD\integration\models\facial_label_encoder.pkl")
+                os.path.join(model_dir, "facial_label_encoder.pkl")
+            )
             models['vitals_le'] = joblib.load(
-                r"C:\Users\kesav\PycharmProjects\MHD\integration\models\vitals_label_encoder.pkl")
+                os.path.join(model_dir, "vitals_label_encoder.pkl")
+            )
             models['text_le'] = joblib.load(
-                r"C:\Users\kesav\PycharmProjects\MHD\integration\models\text_label_encoder.pkl")
+                os.path.join(model_dir, "text_label_encoder.pkl")
+            )
 
         st.success("✅ All models loaded successfully!")
         return models
+
     except Exception as e:
         st.error(f"❌ Error loading models: {str(e)}")
         return None
-
 
 # === Enhanced Visualization Functions ===
 def create_confidence_bar_chart(probabilities, labels, title):
