@@ -1,10 +1,9 @@
 streamlit
-pandas
 numpy
-scikit-learn
 tensorflow
-keras
-matplotlib
-seaborn
 joblib
-nltk
+pillow
+opencv-python-headless
+streamlit-webrtc
+plotly
+pandas
