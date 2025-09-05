@@ -8,7 +8,7 @@ matplotlib
 seaborn
 joblib
 nltk
-pillow
+plotly
 opencv-python-headless
 streamlit-webrtc
-plotly
+opencv-python
