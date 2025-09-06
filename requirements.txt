@@ -3,7 +3,7 @@ numpy
 pandas
 joblib
 Pillow
-opencv-python
+opencv-python-headless
 tensorflow
 scikit-learn
 plotly
